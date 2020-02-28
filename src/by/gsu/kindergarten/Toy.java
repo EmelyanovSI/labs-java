@@ -1,9 +1,12 @@
 package by.gsu.kindergarten;
 
+import by.gsu.abstr.Record;
+
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
 
-public class Toy {
+public class Toy extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
@@ -14,19 +17,13 @@ public class Toy {
                     "%n║%3d║%5d║%13s║%16s║%13s║%11s║%11s║";
     public static final String ENDING =
             "╚═══╩═════╩═════════════╩════════════════╩═════════════╩═══════════╩═══════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int groupKey;
     private String title;
     private int quantity;
     private String price;
     private LocalDate dateOfDelivery;
     private LocalDate dateOfWriteOff;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getGroupKey() {
         return groupKey;
@@ -77,7 +74,7 @@ public class Toy {
     }
 
     public Toy() {
-        this(new Group(), UNKNOWN, 0, UNKNOWN, LocalDate.now(), LocalDate.MAX);
+        this(new Group(), UNKNOWN(), 0, UNKNOWN(), LocalDate.now(), LocalDate.MAX);
     }
 
     public Toy(
@@ -88,7 +85,7 @@ public class Toy {
             LocalDate dateOfDelivery,
             LocalDate dateOfWriteOff
     ) {
-        key = counter++;
+        setKey(counter++);
         groupKey = group.getKey();
         this.title = title;
         this.quantity = quantity;
@@ -102,7 +99,7 @@ public class Toy {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 groupKey,
                 title,
                 quantity,

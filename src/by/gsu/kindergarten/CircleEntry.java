@@ -1,30 +1,27 @@
 package by.gsu.kindergarten;
 
+import by.gsu.abstr.Record;
+
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
 
-public class CircleEntry {
+public class CircleEntry extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦═════╦══════╦═════════════╦═════════════╗\n" +
-            "║KEY║CHILD║CIRCLE║    DORec    ║    DORel    ║";
+                    "║KEY║CHILD║CIRCLE║    DORec    ║    DORel    ║";
     private static final String MEDIUM =
             "╠═══╬═════╬══════╬═════════════╬═════════════╣" +
-            "%n║%3d║%5d║%6d║%13s║%13s║";
+                    "%n║%3d║%5d║%6d║%13s║%13s║";
     public static final String ENDING =
             "╚═══╩═════╩══════╩═════════════╩═════════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int childKey;
     private int circleKey;
     private LocalDate dateOfRecord;
     private LocalDate dateOfRelease;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getChildKey() {
         return childKey;
@@ -63,7 +60,7 @@ public class CircleEntry {
     }
 
     public CircleEntry(Child child, Circle circle, LocalDate dateOfRecord, LocalDate dateOfRelease) {
-        key = counter++;
+        setKey(counter++);
         childKey = child.getKey();
         circleKey = circle.getKey();
         this.dateOfRecord = dateOfRecord;
@@ -75,7 +72,7 @@ public class CircleEntry {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 childKey,
                 circleKey,
                 dateOfRecord,
@@ -85,7 +82,7 @@ public class CircleEntry {
 
     public static String[] initialize(int i) {
         final String s = String.valueOf(i);
-        return new String[] {s, s, LocalDate.now().toString(), LocalDate.now().toString()};
+        return new String[]{s, s, LocalDate.now().toString(), LocalDate.now().toString()};
     }
 
 }

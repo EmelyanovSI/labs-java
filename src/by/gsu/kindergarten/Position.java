@@ -1,27 +1,24 @@
 package by.gsu.kindergarten;
 
-import java.util.Locale;
+import by.gsu.abstr.Record;
 
-public class Position {
+import java.util.Locale;
+import java.util.Objects;
+
+public class Position extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦═════════════╦════════════╗\n" +
-            "║KEY║    TITLE    ║    TYPE    ║";
+                    "║KEY║    TITLE    ║    TYPE    ║";
     private static final String MEDIUM =
             "╠═══╬═════════════╬════════════╣" +
-            "%n║%3d║%13s║%12s║";
+                    "%n║%3d║%13s║%12s║";
     public static final String ENDING =
             "╚═══╩═════════════╩════════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private String title;
     private String type;
-
-    public int getKey() {
-        return key;
-    }
 
     public String getTitle() {
         return title;
@@ -40,11 +37,11 @@ public class Position {
     }
 
     public Position() {
-        this(UNKNOWN, UNKNOWN);
+        this(UNKNOWN(), UNKNOWN());
     }
 
     public Position(String title, String type) {
-        key = counter++;
+        setKey(counter++);
         this.title = title;
         this.type = type;
     }
@@ -54,7 +51,7 @@ public class Position {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 title,
                 type
         );
@@ -62,7 +59,7 @@ public class Position {
 
     public static String[] initialize(int i) {
         final String s = String.valueOf(i);
-        return new String[] {s, s};
+        return new String[]{s, s};
     }
 
 }

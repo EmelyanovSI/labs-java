@@ -1,28 +1,25 @@
 package by.gsu.kindergarten;
 
-import java.util.Locale;
+import by.gsu.abstr.Record;
 
-public class Room {
+import java.util.Locale;
+import java.util.Objects;
+
+public class Room extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦═════════════╦════════════╦════════════╗\n" +
-            "║KEY║    FLOOR    ║    SIZE    ║    TYPE    ║";
+                    "║KEY║    FLOOR    ║    SIZE    ║    TYPE    ║";
     private static final String MEDIUM =
             "╠═══╬═════════════╬════════════╬════════════╣" +
-            "%n║%3d║%13s║%12s║%12s║";
+                    "%n║%3d║%13s║%12s║%12s║";
     public static final String ENDING =
             "╚═══╩═════════════╩════════════╩════════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int floor;
     private int size;
     private String type;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getFloor() {
         return floor;
@@ -49,11 +46,11 @@ public class Room {
     }
 
     public Room() {
-        this(0, 0, UNKNOWN);
+        this(0, 0, UNKNOWN());
     }
 
     public Room(int floor, int size, String type) {
-        key = counter++;
+        setKey(counter++);
         this.floor = floor;
         this.size = size;
         this.type = type;
@@ -64,7 +61,7 @@ public class Room {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 floor,
                 size,
                 type
@@ -73,7 +70,7 @@ public class Room {
 
     public static String[] initialize(int i) {
         final String s = String.valueOf(i);
-        return new String[] {s, s, s};
+        return new String[]{s, s, s};
     }
 
 }

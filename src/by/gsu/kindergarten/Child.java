@@ -1,9 +1,13 @@
 package by.gsu.kindergarten;
 
+import by.gsu.interfaces.Input;
+
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.Scanner;
 
-public class Child {
+public class Child extends Family implements Input {
 
     private static int counter = 1;
     public static final String OPENING =
@@ -14,9 +18,7 @@ public class Child {
                     "%n║%3d║%5d║%6d║%12s║%11s║%11s║%11s║%11s║";
     public static final String ENDING =
             "╚═══╩═════╩══════╩════════════╩═══════════╩═══════════╩═══════════╩═══════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int groupKey;
     private int familyKey;
     private String name;
@@ -24,10 +26,6 @@ public class Child {
     private LocalDate dateOfBirth;
     private LocalDate dateOfEnrollment;
     private LocalDate dateOfRelease;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getGroupKey() {
         return groupKey;
@@ -86,7 +84,7 @@ public class Child {
     }
 
     public Child() {
-        this(new Group(), new Family(), UNKNOWN, UNKNOWN, LocalDate.MIN, LocalDate.now(), LocalDate.MAX);
+        this(new Group(), new Family(), UNKNOWN(), UNKNOWN(), LocalDate.MIN, LocalDate.now(), LocalDate.MAX);
     }
 
     public Child(
@@ -98,7 +96,7 @@ public class Child {
             LocalDate dateOfEnrollment,
             LocalDate dateOfRelease
     ) {
-        key = counter++;
+        setKey(counter++);
         this.groupKey = group.getKey();
         this.familyKey = family.getKey();
         this.name = name;
@@ -113,7 +111,7 @@ public class Child {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 groupKey,
                 familyKey,
                 name,
@@ -129,6 +127,38 @@ public class Child {
         return new String[]{
                 s, s, s, s, LocalDate.now().toString(), LocalDate.now().toString(), LocalDate.now().toString()
         };
+    }
+
+    @Override
+    public void input() {
+        System.out.println("CHANGE ELEMENT:");
+        final String[] strings = new Scanner(System.in).next().split(";");
+        this.groupKey = Integer.parseInt(strings[0]);
+        this.familyKey = Integer.parseInt(strings[1]);
+        this.name = strings[2];
+        this.sex = strings[3];
+        this.dateOfBirth = LocalDate.parse(strings[4]);
+        this.dateOfEnrollment = LocalDate.parse(strings[5]);
+        this.dateOfRelease = LocalDate.parse(strings[6]);
+        if (strings.length > 7)
+            setAddress(strings[7]);
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.println(String.format(
+                Locale.ENGLISH,
+                OPENING + "\n" + MEDIUM + "\n" + ENDING,
+                getKey(),
+                groupKey,
+                familyKey,
+                name,
+                sex,
+                dateOfBirth,
+                dateOfEnrollment,
+                dateOfRelease
+        ));
     }
 
 }

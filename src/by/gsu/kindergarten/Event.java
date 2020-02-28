@@ -1,29 +1,26 @@
 package by.gsu.kindergarten;
 
+import by.gsu.abstr.Record;
+
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
 
-public class Event {
+public class Event extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦═════╦═════════════╦═══════════╗\n" +
-            "║KEY║GROUP║    TITLE    ║    DOE    ║";
+                    "║KEY║GROUP║    TITLE    ║    DOE    ║";
     private static final String MEDIUM =
             "╠═══╬═════╬═════════════╬═══════════╣" +
-            "%n║%3d║%5d║%13s║%11s║";
+                    "%n║%3d║%5d║%13s║%11s║";
     public static final String ENDING =
             "╚═══╩═════╩═════════════╩═══════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int groupKey;
     private String title;
     private LocalDate dateOfEvent;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getGroupKey() {
         return groupKey;
@@ -50,11 +47,11 @@ public class Event {
     }
 
     public Event() {
-        this(new Group(), UNKNOWN, LocalDate.now());
+        this(new Group(), UNKNOWN(), LocalDate.now());
     }
 
     public Event(Group group, String title, LocalDate dateOfEvent) {
-        key = counter++;
+        setKey(counter++);
         groupKey = group.getKey();
         this.title = title;
         this.dateOfEvent = dateOfEvent;
@@ -65,7 +62,7 @@ public class Event {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 groupKey,
                 title,
                 dateOfEvent

@@ -1,22 +1,23 @@
 package by.gsu.kindergarten;
 
+import by.gsu.abstr.Record;
+
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
 
-public class Worker {
+public class Worker extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦════════╦═════╦════════════╦═══════════╦═════════════════╦═══════════════╦═════════════╗\n" +
-            "║KEY║POSITION║GROUP║    NAME    ║    DOB    ║    EDUCATION    ║    ADDRESS    ║    PHONE    ║";
+                    "║KEY║POSITION║GROUP║    NAME    ║    DOB    ║    EDUCATION    ║    ADDRESS    ║    PHONE    ║";
     private static final String MEDIUM =
             "╠═══╬════════╬═════╬════════════╬═══════════╬═════════════════╬═══════════════╬═════════════╣" +
-            "%n║%3d║%8d║%5d║%12s║%11s║%17s║%15s║%13s║";
+                    "%n║%3d║%8d║%5d║%12s║%11s║%17s║%15s║%13s║";
     public static final String ENDING =
             "╚═══╩════════╩═════╩════════════╩═══════════╩═════════════════╩═══════════════╩═════════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int positionKey;
     private int groupKey;
     private String name;
@@ -24,10 +25,6 @@ public class Worker {
     private String education;
     private String address;
     private int phone;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getPositionKey() {
         return positionKey;
@@ -86,7 +83,7 @@ public class Worker {
     }
 
     public Worker() {
-        this(new Position(), new Group(), UNKNOWN, LocalDate.MIN, UNKNOWN, UNKNOWN, 0);
+        this(new Position(), new Group(), UNKNOWN(), LocalDate.MIN, UNKNOWN(), UNKNOWN(), 0);
     }
 
     public Worker(
@@ -98,7 +95,7 @@ public class Worker {
             String address,
             int phone
     ) {
-        key = counter++;
+        setKey(counter++);
         positionKey = position.getKey();
         groupKey = group.getKey();
         this.name = name;
@@ -113,7 +110,7 @@ public class Worker {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 positionKey,
                 groupKey,
                 name,
@@ -126,7 +123,7 @@ public class Worker {
 
     public static String[] initialize(int i) {
         final String s = String.valueOf(i);
-        return new String[] {s, s, s, LocalDate.now().toString(), s, s, s};
+        return new String[]{s, s, s, LocalDate.now().toString(), s, s, s};
     }
 
 }

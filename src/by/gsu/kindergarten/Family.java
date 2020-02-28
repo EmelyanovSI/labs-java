@@ -1,21 +1,23 @@
 package by.gsu.kindergarten;
 
-import java.util.Locale;
+import by.gsu.abstr.Record;
+import by.gsu.interfaces.Print;
 
-public class Family {
+import java.util.Locale;
+import java.util.Objects;
+
+public class Family extends Record implements Print {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦═══════════════╦══════════════╦══════════════╦══════════════════╦═════════════════════╦══════════════╦══════════════════╦═════════════════════╗\n" +
-            "║KEY║    ADDRESS    ║    NUMBER    ║    MOTHER    ║    MOTHER_JOB    ║    MOTHER_NUMBER    ║    FATHER    ║    FATHER_JOB    ║    FATHER_NUMBER    ║";
+                    "║KEY║    ADDRESS    ║    NUMBER    ║    MOTHER    ║    MOTHER_JOB    ║    MOTHER_NUMBER    ║    FATHER    ║    FATHER_JOB    ║    FATHER_NUMBER    ║";
     private static final String MEDIUM =
             "╠═══╬═══════════════╬══════════════╬══════════════╬══════════════════╬═════════════════════╬══════════════╬══════════════════╬═════════════════════╣" +
-            "%n║%3d║%15s║%14d║%14s║%18s║%21d║%14s║%18s║%21d║";
+                    "%n║%3d║%15s║%14d║%14s║%18s║%21d║%14s║%18s║%21d║";
     public static final String ENDING =
             "╚═══╩═══════════════╩══════════════╩══════════════╩══════════════════╩═════════════════════╩══════════════╩══════════════════╩═════════════════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private String address;
     private int homeNumber;
     private String motherName;
@@ -24,10 +26,6 @@ public class Family {
     private String fatherName;
     private String fatherJob;
     private int fatherNumber;
-
-    public int getKey() {
-        return key;
-    }
 
     public String getAddress() {
         return address;
@@ -94,7 +92,7 @@ public class Family {
     }
 
     public Family() {
-        this(UNKNOWN, 0,UNKNOWN, UNKNOWN, 0,UNKNOWN, UNKNOWN, 0);
+        this(UNKNOWN(), 0, UNKNOWN(), UNKNOWN(), 0, UNKNOWN(), UNKNOWN(), 0);
     }
 
     public Family(
@@ -107,7 +105,7 @@ public class Family {
             String fatherJob,
             int fatherNumber
     ) {
-        key = counter++;
+        setKey(counter++);
         this.address = address;
         this.homeNumber = homeNumber;
         this.motherName = motherName;
@@ -123,7 +121,7 @@ public class Family {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 address,
                 homeNumber,
                 motherName,
@@ -137,7 +135,25 @@ public class Family {
 
     public static String[] initialize(int i) {
         final String s = String.valueOf(i);
-        return new String[] {s, s, s, s, s, s, s, s};
+        return new String[]{s, s, s, s, s, s, s, s};
     }
 
+    @Override
+    public void print() {
+        System.out.println("ELEMENT:");
+        System.out.println(String.format(
+                Locale.ENGLISH,
+                OPENING+ "\n" + MEDIUM + "\n" + ENDING,
+                getKey(),
+                address,
+                homeNumber,
+                motherName,
+                motherJob,
+                motherNumber,
+                fatherName,
+                fatherJob,
+                fatherNumber
+        ));
+    }
+    
 }

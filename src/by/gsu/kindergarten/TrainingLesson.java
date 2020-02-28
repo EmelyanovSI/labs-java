@@ -1,31 +1,28 @@
 package by.gsu.kindergarten;
 
+import by.gsu.abstr.Record;
+
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Objects;
 
-public class TrainingLesson {
+public class TrainingLesson extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦═════╦══════╦════╦═════════════╦═══════════╗\n" +
-            "║KEY║GROUP║WORKER║ROOM║    TITLE    ║    DOL    ║";
+                    "║KEY║GROUP║WORKER║ROOM║    TITLE    ║    DOL    ║";
     private static final String MEDIUM =
             "╠═══╬═════╬══════╬════╬═════════════╬═══════════╣" +
-            "%n║%3d║%5d║%6d║%4d║%13s║%11s║";
+                    "%n║%3d║%5d║%6d║%4d║%13s║%11s║";
     public static final String ENDING =
             "╚═══╩═════╩══════╩════╩═════════════╩═══════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int groupKey;
     private int workerKey;
     private int roomKey;
     private String title;
     private LocalDate dateOfLesson;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getGroupKey() {
         return groupKey;
@@ -68,11 +65,11 @@ public class TrainingLesson {
     }
 
     public TrainingLesson() {
-        this(new Group(), new Worker(), new Room(), UNKNOWN, LocalDate.now());
+        this(new Group(), new Worker(), new Room(), UNKNOWN(), LocalDate.now());
     }
 
     public TrainingLesson(Group group, Worker worker, Room room, String title, LocalDate dateOfLesson) {
-        key = counter++;
+        setKey(counter++);
         groupKey = group.getKey();
         workerKey = worker.getKey();
         roomKey = room.getKey();
@@ -85,7 +82,7 @@ public class TrainingLesson {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 groupKey,
                 workerKey,
                 roomKey,

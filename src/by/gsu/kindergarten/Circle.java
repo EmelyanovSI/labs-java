@@ -1,30 +1,27 @@
 package by.gsu.kindergarten;
 
-import java.util.Locale;
+import by.gsu.abstr.Record;
 
-public class Circle {
+import java.util.Locale;
+import java.util.Objects;
+
+public class Circle extends Record {
 
     private static int counter = 1;
     public static final String OPENING =
             "╔═══╦══════╦════╦═════════════╦════════════╦═════════════╗\n" +
-            "║KEY║WORKER║ROOM║    TITLE    ║    TIME    ║    PRICE    ║";
+                    "║KEY║WORKER║ROOM║    TITLE    ║    TIME    ║    PRICE    ║";
     private static final String MEDIUM =
             "╠═══╬══════╬════╬═════════════╬════════════╬═════════════╣" +
-            "%n║%3d║%6d║%4d║%13s║%12s║%13s║";
+                    "%n║%3d║%6d║%4d║%13s║%12s║%13s║";
     public static final String ENDING =
             "╚═══╩══════╩════╩═════════════╩════════════╩═════════════╝";
-    private static final String UNKNOWN = "Unknown";
 
-    private final int key;
     private int workerKey;
     private int roomKey;
     private String title;
     private String time;
     private String price;
-
-    public int getKey() {
-        return key;
-    }
 
     public int getWorkerKey() {
         return workerKey;
@@ -67,11 +64,11 @@ public class Circle {
     }
 
     public Circle() {
-        this(new Worker(), new Room(), UNKNOWN, UNKNOWN, UNKNOWN);
+        this(new Worker(), new Room(), UNKNOWN(), UNKNOWN(), UNKNOWN());
     }
 
     public Circle(Worker employee, Room room, String title, String time, String price) {
-        key = counter++;
+        setKey(counter++);
         workerKey = employee.getKey();
         roomKey = room.getKey();
         this.title = title;
@@ -84,7 +81,7 @@ public class Circle {
         return String.format(
                 Locale.ENGLISH,
                 MEDIUM,
-                key,
+                getKey(),
                 workerKey,
                 roomKey,
                 title,
@@ -95,7 +92,7 @@ public class Circle {
 
     public static String[] initialize(int i) {
         final String s = String.valueOf(i);
-        return new String[] {s, s, s, s, s};
+        return new String[]{s, s, s, s, s};
     }
 
 }
