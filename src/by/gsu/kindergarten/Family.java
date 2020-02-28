@@ -139,11 +139,25 @@ public class Family extends Record implements Print {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Family)) return false;
+        Family family = (Family) o;
+        return Objects.equals(getMotherName(), family.getMotherName()) &&
+                Objects.equals(getFatherName(), family.getFatherName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMotherName(), getFatherName());
+    }
+
+    @Override
     public void print() {
         System.out.println("ELEMENT:");
         System.out.println(String.format(
                 Locale.ENGLISH,
-                OPENING+ "\n" + MEDIUM + "\n" + ENDING,
+                OPENING + "\n" + MEDIUM + "\n" + ENDING,
                 getKey(),
                 address,
                 homeNumber,
@@ -155,5 +169,5 @@ public class Family extends Record implements Print {
                 fatherNumber
         ));
     }
-    
+
 }

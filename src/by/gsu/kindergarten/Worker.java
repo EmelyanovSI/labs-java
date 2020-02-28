@@ -126,4 +126,18 @@ public class Worker extends Record {
         return new String[]{s, s, s, LocalDate.now().toString(), s, s, s};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Worker)) return false;
+        Worker worker = (Worker) o;
+        return Objects.equals(getName(), worker.getName()) &&
+                Objects.equals(getDateOfBirth(), worker.getDateOfBirth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getDateOfBirth());
+    }
+
 }

@@ -62,4 +62,17 @@ public class Position extends Record {
         return new String[]{s, s};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Position)) return false;
+        Position position = (Position) o;
+        return Objects.equals(getTitle(), position.getTitle());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle());
+    }
+
 }

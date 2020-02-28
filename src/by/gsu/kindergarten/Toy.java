@@ -114,4 +114,17 @@ public class Toy extends Record {
         return new String[]{s, s, s, s, LocalDate.now().toString(), LocalDate.now().toString()};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Toy)) return false;
+        Toy toy = (Toy) o;
+        return Objects.equals(getTitle(), toy.getTitle());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle());
+    }
+
 }

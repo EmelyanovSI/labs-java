@@ -73,4 +73,19 @@ public class Room extends Record {
         return new String[]{s, s, s};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Room)) return false;
+        Room room = (Room) o;
+        return getFloor() == room.getFloor() &&
+                getSize() == room.getSize() &&
+                Objects.equals(getType(), room.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFloor(), getSize(), getType());
+    }
+
 }

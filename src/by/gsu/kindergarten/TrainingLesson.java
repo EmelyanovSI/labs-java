@@ -96,4 +96,20 @@ public class TrainingLesson extends Record {
         return new String[] {s, s, s, s, LocalDate.now().toString()};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainingLesson)) return false;
+        TrainingLesson that = (TrainingLesson) o;
+        return getGroupKey() == that.getGroupKey() &&
+                getWorkerKey() == that.getWorkerKey() &&
+                getRoomKey() == that.getRoomKey() &&
+                Objects.equals(getTitle(), that.getTitle());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGroupKey(), getWorkerKey(), getRoomKey(), getTitle());
+    }
+
 }

@@ -130,6 +130,21 @@ public class Child extends Family implements Input {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Child)) return false;
+        Child child = (Child) o;
+        return Objects.equals(getName(), child.getName()) &&
+                Objects.equals(getSex(), child.getSex()) &&
+                Objects.equals(getDateOfBirth(), child.getDateOfBirth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getSex());
+    }
+
+    @Override
     public void input() {
         System.out.println("CHANGE ELEMENT:");
         final String[] strings = new Scanner(System.in).next().split(";");

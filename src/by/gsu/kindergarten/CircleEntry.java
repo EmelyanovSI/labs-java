@@ -85,4 +85,18 @@ public class CircleEntry extends Record {
         return new String[]{s, s, LocalDate.now().toString(), LocalDate.now().toString()};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CircleEntry)) return false;
+        CircleEntry that = (CircleEntry) o;
+        return getChildKey() == that.getChildKey() &&
+                getCircleKey() == that.getCircleKey();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getChildKey(), getCircleKey());
+    }
+
 }

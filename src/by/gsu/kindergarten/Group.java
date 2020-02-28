@@ -73,4 +73,19 @@ public class Group extends Record {
         return new String[]{s, s, s};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Group)) return false;
+        Group group = (Group) o;
+        return getRoomKey() == group.getRoomKey() &&
+                Objects.equals(getTitle(), group.getTitle()) &&
+                Objects.equals(getCategory(), group.getCategory());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getRoomKey(), getTitle(), getCategory());
+    }
+
 }

@@ -74,4 +74,18 @@ public class Payment extends Record {
         return new String[] {s, s, LocalDate.now().toString()};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Payment)) return false;
+        Payment payment = (Payment) o;
+        return childKey == payment.childKey &&
+                Objects.equals(price, payment.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(childKey, price);
+    }
+
 }

@@ -74,4 +74,18 @@ public class Event extends Record {
         return new String[] {s, s, LocalDate.now().toString()};
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Event)) return false;
+        Event event = (Event) o;
+        return getGroupKey() == event.getGroupKey() &&
+                Objects.equals(getTitle(), event.getTitle());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGroupKey(), getTitle());
+    }
+
 }
