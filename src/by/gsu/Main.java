@@ -368,6 +368,10 @@ public class Main {
             print(i);
             System.out.println();
         }
+
+        CHILDREN[0].input();
+        CHILDREN[0].print();
+        FAMILIES[0].print();
     }
 
     @Override
